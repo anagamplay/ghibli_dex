@@ -28,7 +28,8 @@ final ThemeData appTheme = ThemeData(
   scaffoldBackgroundColor: AppColors.background,
   appBarTheme: AppBarTheme(
     backgroundColor: AppColors.background,
-    foregroundColor: AppColors.onPrimary,
+    foregroundColor: AppColors.background,
+    surfaceTintColor: AppColors.background,
   ),
   buttonTheme: ButtonThemeData(
     buttonColor: AppColors.primary,
@@ -40,4 +41,7 @@ final ThemeData appTheme = ThemeData(
     bodyLarge: TextStyle(color: Colors.white, fontSize: 16),
     bodyMedium: TextStyle(color: Colors.white, fontSize: 14),
   ),
+  snackBarTheme: SnackBarThemeData(
+    backgroundColor: AppColors.primary,
+  )
 );

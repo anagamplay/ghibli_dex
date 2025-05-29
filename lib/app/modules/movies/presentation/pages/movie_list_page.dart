@@ -41,7 +41,8 @@ class _MovieListPageState extends State<MovieListPage> {
       stream: _bloc.stream,
       builder: (context, snapshot) {
         if (snapshot.hasError) return const _ErrorWidget();
-        if (!snapshot.hasData) return const Center(child: CircularProgressIndicator());
+        if (!snapshot.hasData)
+          return const Center(child: CircularProgressIndicator());
 
         final movies = snapshot.data!;
         if (movies.isEmpty) return const _EmptyWidget();
@@ -63,10 +64,36 @@ class _MovieListPageState extends State<MovieListPage> {
           child: ListView(
             padding: const EdgeInsets.all(10),
             children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 5),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Chip(
+                      label: Text('All'),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                    ),
+                    Chip(
+                      label: Text('By Category'),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                    ),
+                    Chip(
+                      label: Text('Favorites'),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
               _buildCarousel(_shuffledMovies),
               const SizedBox(height: 20),
               const Text(
-                "Últimos Lançamentos",
+                "Latest Releases",
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 12),
@@ -155,7 +182,7 @@ class _MovieListPageState extends State<MovieListPage> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          "Anos $decade",
+          decade,
           style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
         ),
         const SizedBox(height: 12),

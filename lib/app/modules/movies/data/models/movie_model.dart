@@ -8,6 +8,10 @@ class MovieModel extends Movie {
     required super.image,
     required super.releaseDate,
     required super.movieBanner,
+    required super.director,
+    required super.producer,
+    required super.runningTime,
+    required super.rtScore,
   });
 
   factory MovieModel.fromJson(Map<String, dynamic> json) {
@@ -18,6 +22,10 @@ class MovieModel extends Movie {
       image: json['image'],
       releaseDate: json['release_date'],
       movieBanner: json['movie_banner'],
+      director: json['director'],
+      producer: json['producer'],
+      runningTime: json['running_time'],
+      rtScore: json['rt_score'],
     );
   }
 }

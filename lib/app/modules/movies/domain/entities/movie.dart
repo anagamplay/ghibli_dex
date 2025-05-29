@@ -5,6 +5,10 @@ class Movie {
   final String image;
   final String releaseDate;
   final String movieBanner;
+  final String director;
+  final String producer;
+  final String runningTime;
+  final String rtScore;
 
   Movie({
     required this.id,
@@ -13,5 +17,9 @@ class Movie {
     required this.image,
     required this.releaseDate,
     required this.movieBanner,
+    required this.director,
+    required this.producer,
+    required this.runningTime,
+    required this.rtScore,
   });
 }
