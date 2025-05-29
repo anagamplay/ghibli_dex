@@ -6,7 +6,9 @@ import '../../domain/entities/movie.dart';
 import '../widgets/movie_card.dart';
 
 class MovieListPage extends StatefulWidget {
-  const MovieListPage({super.key});
+  final ScrollController scrollController;
+
+  const MovieListPage({required this.scrollController, super.key});
 
   @override
   State<MovieListPage> createState() => _MovieListPageState();
@@ -62,34 +64,9 @@ class _MovieListPageState extends State<MovieListPage> {
         return RefreshIndicator(
           onRefresh: _onRefresh,
           child: ListView(
+            controller: widget.scrollController,
             padding: const EdgeInsets.all(10),
             children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 5),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Chip(
-                      label: Text('All'),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                    ),
-                    Chip(
-                      label: Text('By Category'),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                    ),
-                    Chip(
-                      label: Text('Favorites'),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
               _buildCarousel(_shuffledMovies),
               const SizedBox(height: 20),
               const Text(
