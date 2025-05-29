@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../domain/entities/movie.dart';
+import '../widgets/section_padding.dart';
+import '../widgets/start_rating.dart';
 
 class MoviePage extends StatefulWidget {
   final Movie movie;
@@ -13,6 +15,34 @@ class MoviePage extends StatefulWidget {
 class _MoviePageState extends State<MoviePage> {
   bool isFavorited = false;
 
+  late final List<String> directorList;
+  late final List<String> producerList;
+
+  @override
+  void initState() {
+    super.initState();
+    directorList = _splitMultiValue(widget.movie.director);
+    producerList = _splitMultiValue(widget.movie.producer);
+  }
+
+  List<String> _splitMultiValue(String value) {
+    return value.contains(',')
+        ? value.split(',').map((e) => e.trim()).toList()
+        : [value];
+  }
+
+  void _toggleFavorite() {
+    setState(() => isFavorited = !isFavorited);
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(
+          isFavorited ? "Movie added to favorites!" : "Removed from favorites!",
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final movie = widget.movie;
@@ -23,47 +53,9 @@ class _MoviePageState extends State<MoviePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Stack(
-              children: [
-                Image.network(
-                  movie.movieBanner,
-                  width: double.infinity,
-                  height: 220,
-                  fit: BoxFit.cover,
-                ),
-                Positioned(
-                  bottom: 8,
-                  right: 8,
-                  child: GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        isFavorited = !isFavorited;
-                      });
-
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text(
-                            isFavorited
-                                ? "Movie added to favorites!"
-                                : "Removed from favorites!",
-                          ),
-                        ),
-                      );
-                    },
-                    child: CircleAvatar(
-                      backgroundColor: Colors.black54,
-                      child: Icon(
-                        isFavorited ? Icons.favorite : Icons.favorite_border,
-                        color: Colors.red,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
+            _buildBanner(movie.movieBanner),
             const SizedBox(height: 16),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
+            SectionPadding(
               child: Text(
                 movie.title,
                 style: const TextStyle(
@@ -72,32 +64,30 @@ class _MoviePageState extends State<MoviePage> {
                 ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            SectionPadding(
+              vertical: 8,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(movie.releaseDate),
-                  _buildStarRating(movie.rtScore),
+                  StarRating(rtScore: movie.rtScore),
                 ],
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
+            SectionPadding(
               child: Text(
                 movie.description,
                 style: const TextStyle(fontSize: 16),
               ),
             ),
             const SizedBox(height: 16),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
+            SectionPadding(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  _infoRow("Director", movie.director),
-                  _infoRow("Producer", movie.producer),
-                  _infoRow("Running Time", "${movie.runningTime} minutes"),
+                  _infoRow("Director", directorList),
+                  _infoRow("Producer", producerList),
+                  _infoRow("Running Time", ["${movie.runningTime} minutes"]),
                 ],
               ),
             ),
@@ -108,9 +98,34 @@ class _MoviePageState extends State<MoviePage> {
     );
   }
 
-  Widget _infoRow(String label, String value) {
-    final isMultiValue = value.contains(',');
+  Widget _buildBanner(String url) {
+    return Stack(
+      children: [
+        Image.network(
+          url,
+          width: double.infinity,
+          height: 220,
+          fit: BoxFit.cover,
+        ),
+        Positioned(
+          bottom: 8,
+          right: 8,
+          child: GestureDetector(
+            onTap: _toggleFavorite,
+            child: CircleAvatar(
+              backgroundColor: Colors.black54,
+              child: Icon(
+                isFavorited ? Icons.favorite : Icons.favorite_border,
+                color: Colors.red,
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
 
+  Widget _infoRow(String label, List<String> values) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 8),
       child: Row(
@@ -121,33 +136,15 @@ class _MoviePageState extends State<MoviePage> {
             style: const TextStyle(fontWeight: FontWeight.bold),
           ),
           Expanded(
-            child: isMultiValue
+            child: values.length > 1
                 ? Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children:
-                        value.split(',').map((e) => Text(e.trim())).toList(),
+                    children: values.map((e) => Text(e)).toList(),
                   )
-                : Text(value),
+                : Text(values.first),
           ),
         ],
       ),
-    );
-  }
-
-  Widget _buildStarRating(String rtScore) {
-    final double score = double.tryParse(rtScore) ?? 0;
-    final double stars = (score / 100) * 5;
-
-    return Row(
-      children: List.generate(5, (index) {
-        if (index < stars.floor()) {
-          return const Icon(Icons.star, color: Colors.amber, size: 20);
-        } else if (index < stars) {
-          return const Icon(Icons.star_half, color: Colors.amber, size: 20);
-        } else {
-          return const Icon(Icons.star_border, color: Colors.amber, size: 20);
-        }
-      }),
     );
   }
 }

@@ -43,8 +43,7 @@ class _MovieListPageState extends State<MovieListPage> {
       stream: _bloc.stream,
       builder: (context, snapshot) {
         if (snapshot.hasError) return const _ErrorWidget();
-        if (!snapshot.hasData)
-          return const Center(child: CircularProgressIndicator());
+        if (!snapshot.hasData) return const Center(child: CircularProgressIndicator());
 
         final movies = snapshot.data!;
         if (movies.isEmpty) return const _EmptyWidget();
