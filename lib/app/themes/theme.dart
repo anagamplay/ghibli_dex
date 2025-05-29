@@ -30,6 +30,12 @@ final ThemeData appTheme = ThemeData(
     backgroundColor: AppColors.background,
     foregroundColor: AppColors.background,
     surfaceTintColor: AppColors.background,
+    iconTheme: IconThemeData(
+      color: Colors.white
+    ),
+    actionsIconTheme: IconThemeData(
+      color: Colors.white,
+    )
   ),
   buttonTheme: ButtonThemeData(
     buttonColor: AppColors.primary,

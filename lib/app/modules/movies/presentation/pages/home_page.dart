@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:ghibli_dex/app/modules/movies/presentation/pages/movie_list_page.dart';
+import 'package:ghibli_dex/app/modules/movies/presentation/pages/teste_page.dart';
 import 'package:ghibli_dex/app/modules/movies/presentation/widgets/selectable_chip.dart';
 
 class HomePage extends StatefulWidget {
@@ -40,8 +41,8 @@ class _HomePageState extends State<HomePage> {
 
     pages = [
       MovieListPage(scrollController: _scrollController),
-      MovieListPage(scrollController: _scrollController),
-      MovieListPage(scrollController: _scrollController),
+      TestePage(scrollController: _scrollController),
+      TestePage(scrollController: _scrollController),
     ];
   }
 
