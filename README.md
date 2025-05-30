@@ -18,11 +18,11 @@ O app utiliza a [API pública do Studio Ghibli](https://ghibliapi.vercel.app/) p
 
 ---
 
-### Telas do App
+### Principais Telas do App
 
-|     Tela inicial     | Filmes por categoria |  Filmes Favoritados  |   Detalhes do Filme  |
-|:--------------------:|:--------------------:|:--------------------:|:--------------------:|
-| <img src="assets/all_screen.jpg" alt="Tela inicial" style="height: 500px; width: auto;" /> | <img src="assets/by_category_screen.jpg" alt="Filmes por categoria" style="height: 500px; width: auto;" /> | <img src="assets/favorites_screen.jpg" alt="Filmes Favoritados" style="height: 500px; width: auto;" /> | <img src="assets/movie_details_screen.jpg" alt="Detalhes do Filme" style="height: 500px; width: auto;" /> |
+|     Tela inicial     | Filmes por categoria |  Filmes Favoritados  |
+|:--------------------:|:--------------------:|:--------------------:|
+| <img src="assets/all_screen.jpg" alt="Tela inicial" style="height: 600px; width: auto;" /> | <img src="assets/by_category_screen.jpg" alt="Filmes por categoria" style="height: 600px; width: auto;" /> | <img src="assets/favorites_screen.jpg" alt="Filmes Favoritados" style="height: 600px; width: auto;" />
 
 
 ---
