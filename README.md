@@ -17,13 +17,13 @@ O app utiliza a [API pública do Studio Ghibli](https://ghibliapi.vercel.app/) p
 ## Screenshots
 
 ### Tela inicial
-![Tela inicial](assets/all_screen.png)
+![Tela inicial](assets/all_screen.jpg)
 
 ### Filmes por categoria
-![Filmes por categoria](assets/by_category_screen.png)
+![Filmes por categoria](assets/by_category_screen.jpg)
 
 ### Filmes Favoritados
-![Filmes por categoria](assets/favorites_screen.png)
+![Filmes por categoria](assets/favorites_screen.jpg)
 
 ---
 
