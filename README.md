@@ -8,7 +8,7 @@
 - Filtros por categoria  
 - Interface responsiva e intuitiva
 
-O nome **GhibliDex** é inspirado na **Pokédex**, o famoso catálogo dos Pokémon — a ideia é oferecer uma experiência similar de consulta, mas voltada para o universo encantador do Studio Ghibli.
+O nome **GhibliDex** é inspirado na **Pokédex**, o famoso catálogo dos Pokémon. A ideia é oferecer uma experiência similar de consulta, mas voltada para o universo encantador do Studio Ghibli.
 
 O app utiliza a [API pública do Studio Ghibli](https://ghibliapi.vercel.app/) para obter os dados dos filmes, e conta com os seguintes pacotes Flutter:
 
