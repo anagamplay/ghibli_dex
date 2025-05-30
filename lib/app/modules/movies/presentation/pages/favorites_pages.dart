@@ -36,9 +36,12 @@ class _FavoritesPageState extends State<FavoritesPage> with AutomaticKeepAliveCl
           return const Center(child: Text("Nenhum filme favoritado."));
         }
 
-        return MovieListComponent(
-          movies: favorites,
-          scrollController: widget.scrollController,
+        return RefreshIndicator(
+          onRefresh: () => FavoriteMovieService.getFavorites(),
+          child: MovieListComponent(
+            movies: favorites,
+            scrollController: widget.scrollController,
+          ),
         );
       },
     );

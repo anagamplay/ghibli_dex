@@ -49,9 +49,12 @@ class _MovieListPageState extends State<MovieListPage> with AutomaticKeepAliveCl
 
         final movies = snapshot.data!;
 
-        return MovieListComponent(
-          movies: movies,
-          scrollController: widget.scrollController,
+        return RefreshIndicator(
+          onRefresh: () => _bloc.fetchMovies(),
+          child: MovieListComponent(
+            movies: movies,
+            scrollController: widget.scrollController,
+          ),
         );
       },
     );
