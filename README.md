@@ -4,7 +4,9 @@
 
 - Marcar filmes como favoritos  
 - Filtros por categoria  
-- Interface responsiva e intuitiva  
+- Interface responsiva e intuitiva
+
+O nome **GhibliDex** é inspirado na **Pokédex**, o famoso catálogo dos Pokémon — a ideia é oferecer uma experiência similar de consulta, mas voltada para o universo encantador do Studio Ghibli.
 
 O app utiliza a [API pública do Studio Ghibli](https://ghibliapi.vercel.app/) para obter os dados dos filmes, e conta com os seguintes pacotes Flutter:
 
@@ -14,16 +16,12 @@ O app utiliza a [API pública do Studio Ghibli](https://ghibliapi.vercel.app/) p
 
 ---
 
-## Screenshots
+### Telas do App
 
-### Tela inicial
-![Tela inicial](assets/all_screen.jpg)
+| Tela inicial | Filmes por categoria | Filmes Favoritados | Filmes Favoritados |
+|:------------:|:--------------------:|:------------------:|:------------------:|
+| ![Tela inicial](assets/all_screen.jpg) | ![Filmes por categoria](assets/by_category_screen.jpg) | ![Filmes Favoritados](assets/favorites_screen.jpg) | | ![Detalhes do Filme](assets/movie_details_screen.jpg) |
 
-### Filmes por categoria
-![Filmes por categoria](assets/by_category_screen.jpg)
-
-### Filmes Favoritados
-![Filmes por categoria](assets/favorites_screen.jpg)
 
 ---
 
