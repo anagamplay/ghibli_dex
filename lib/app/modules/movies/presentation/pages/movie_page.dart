@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../data/services/favorite_movie_service.dart';
 import '../../domain/entities/movie.dart';
 import '../widgets/section_padding.dart';
 import '../widgets/start_rating.dart';
@@ -21,8 +22,17 @@ class _MoviePageState extends State<MoviePage> {
   @override
   void initState() {
     super.initState();
+    _checkIfFavorited();
+
     directorList = _splitMultiValue(widget.movie.director);
     producerList = _splitMultiValue(widget.movie.producer);
+  }
+
+  void _checkIfFavorited() async {
+    final favorited = await FavoriteMovieService.isFavorited(widget.movie.id);
+    setState(() {
+      isFavorited = favorited;
+    });
   }
 
   List<String> _splitMultiValue(String value) {
@@ -31,13 +41,20 @@ class _MoviePageState extends State<MoviePage> {
         : [value];
   }
 
-  void _toggleFavorite() {
-    setState(() => isFavorited = !isFavorited);
+  void _toggleFavorite() async {
+    await FavoriteMovieService.toggleFavorite(widget.movie);
+
+    final isNowFavorited =
+        await FavoriteMovieService.isFavorited(widget.movie.id);
+
+    setState(() => isFavorited = isNowFavorited);
 
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(
-          isFavorited ? "Movie added to favorites!" : "Removed from favorites!",
+          isNowFavorited
+              ? "Movie added to favorites!"
+              : "Removed from favorites!",
         ),
       ),
     );

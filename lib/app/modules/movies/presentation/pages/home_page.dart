@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:ghibli_dex/app/modules/movies/presentation/pages/movie_list_page.dart';
-import 'package:ghibli_dex/app/modules/movies/presentation/pages/teste_page.dart';
+import 'package:ghibli_dex/app/modules/movies/presentation/pages/favorites_pages.dart';
 import 'package:ghibli_dex/app/modules/movies/presentation/widgets/selectable_chip.dart';
+
+import '../../data/services/favorite_movie_service.dart';
+import '../../domain/entities/movie.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -13,8 +16,11 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  late final ValueNotifier<List<Movie>> favoritesNotifier;
+
   int selectedIndex = 0;
   bool showChips = true;
+  bool hasFavorites = false;
   late ScrollController _scrollController;
 
   final List<String> chipLabels = ['All', 'By Category', 'Favorites'];
@@ -41,15 +47,23 @@ class _HomePageState extends State<HomePage> {
 
     pages = [
       MovieListPage(scrollController: _scrollController),
-      TestePage(scrollController: _scrollController),
-      TestePage(scrollController: _scrollController),
+      FavoritesPage(scrollController: _scrollController),
+      FavoritesPage(scrollController: _scrollController),
     ];
+
+    favoritesNotifier = FavoriteMovieService.favoritesNotifier;
+    _initFavoritesState();
   }
 
   @override
   void dispose() {
     _scrollController.dispose();
     super.dispose();
+  }
+
+  Future<void> _initFavoritesState() async {
+    final favorites = await FavoriteMovieService.getFavorites();
+    favoritesNotifier.value = List.from(favorites);
   }
 
   @override
@@ -91,20 +105,24 @@ class _HomePageState extends State<HomePage> {
           offset: showChips ? Offset.zero : const Offset(0, -1),
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 16),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: List.generate(chipLabels.length, (index) {
-                return SelectableChip(
-                  label: chipLabels[index],
-                  selected: selectedIndex == index,
-                  enabled: enabledList[index],
-                  onTap: () {
-                    setState(() {
-                      selectedIndex = index;
-                    });
-                  },
+            child: ValueListenableBuilder<List<Movie>>(
+              valueListenable: favoritesNotifier,
+              builder: (context, favorites, _) {
+                final hasFavorites = favorites.isNotEmpty;
+                final enabledList = [true, true, hasFavorites];
+
+                return Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: List.generate(chipLabels.length, (index) {
+                    return SelectableChip(
+                      label: chipLabels[index],
+                      selected: selectedIndex == index,
+                      enabled: enabledList[index],
+                      onTap: () => setState(() => selectedIndex = index),
+                    );
+                  }),
                 );
-              }),
+              },
             ),
           ),
         ),

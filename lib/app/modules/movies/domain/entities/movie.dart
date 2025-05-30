@@ -1,6 +1,7 @@
 class Movie {
   final String id;
   final String title;
+  final String originalTitleRomanised;
   final String description;
   final String image;
   final String releaseDate;
@@ -21,5 +22,6 @@ class Movie {
     required this.producer,
     required this.runningTime,
     required this.rtScore,
+    required this.originalTitleRomanised,
   });
 }
