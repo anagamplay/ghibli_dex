@@ -14,7 +14,10 @@ class MovieListPage extends StatefulWidget {
   State<MovieListPage> createState() => _MovieListPageState();
 }
 
-class _MovieListPageState extends State<MovieListPage> {
+class _MovieListPageState extends State<MovieListPage> with AutomaticKeepAliveClientMixin<MovieListPage> {
+  @override
+  bool get wantKeepAlive => true;
+
   final _bloc = MoviesBloc();
   final PageController _pageController = PageController();
 
@@ -36,6 +39,8 @@ class _MovieListPageState extends State<MovieListPage> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
+
     return StreamBuilder<List<Movie>>(
       stream: _bloc.stream,
       builder: (context, snapshot) {

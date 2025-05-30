@@ -3,11 +3,11 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:ghibli_dex/app/modules/movies/presentation/widgets/selectable_chip.dart';
 
-import '../../movies/data/services/favorite_movie_service.dart';
-import '../../movies/domain/entities/movie.dart';
-import '../../movies/presentation/pages/favorites_pages.dart';
-import '../../movies/presentation/pages/movie_list_by_category_page.dart';
-import '../../movies/presentation/pages/movie_list_page.dart';
+import '../../../movies/data/services/favorite_movie_service.dart';
+import '../../../movies/domain/entities/movie.dart';
+import '../../../movies/presentation/pages/favorites_pages.dart';
+import '../../../movies/presentation/pages/movie_list_by_category_page.dart';
+import '../../../movies/presentation/pages/movie_list_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -22,7 +22,10 @@ class _HomePageState extends State<HomePage> {
   int selectedIndex = 0;
   bool showChips = true;
   bool hasFavorites = false;
-  late ScrollController _scrollController;
+
+  late final ScrollController _allController;
+  late final ScrollController _byCategoryController;
+  late final ScrollController _favoritesController;
 
   final List<String> chipLabels = ['All', 'By Category', 'Favorites'];
   final List<bool> enabledList = [true, true, false];
@@ -32,28 +35,19 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    _scrollController = ScrollController();
+    _allController = ScrollController();
+    _byCategoryController = ScrollController();
+    _favoritesController = ScrollController();
 
-    _scrollController.addListener(() {
-      if (selectedIndex != 2) {
-        if (_scrollController.position.userScrollDirection ==
-                ScrollDirection.reverse &&
-            showChips) {
-          setState(() => showChips = false);
-        } else if (_scrollController.position.userScrollDirection ==
-                ScrollDirection.forward &&
-            !showChips) {
-          setState(() => showChips = true);
-        }
-      } else {
-        if (!showChips) setState(() => showChips = true);
-      }
-    });
+    _allController.addListener(() => _handleScroll(_allController));
+    _byCategoryController
+        .addListener(() => _handleScroll(_byCategoryController));
+    _favoritesController.addListener(() => _handleScroll(_favoritesController));
 
     pages = [
-      MovieListPage(scrollController: _scrollController),
-      MovieListByCategoryPage(scrollController: _scrollController),
-      FavoritesPage(scrollController: _scrollController),
+      MovieListPage(scrollController: _allController),
+      MovieListByCategoryPage(scrollController: _byCategoryController),
+      FavoritesPage(scrollController: _favoritesController),
     ];
 
     favoritesNotifier = FavoriteMovieService.favoritesNotifier;
@@ -62,8 +56,27 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void dispose() {
-    _scrollController.dispose();
+    _allController.dispose();
+    _byCategoryController.dispose();
+    _favoritesController.dispose();
     super.dispose();
+  }
+
+  void _handleScroll(ScrollController controller) {
+    if (selectedIndex != 2) {
+      if (controller.position.userScrollDirection == ScrollDirection.reverse &&
+          showChips) {
+        setState(() => showChips = false);
+      } else if (controller.position.userScrollDirection ==
+              ScrollDirection.forward &&
+          !showChips) {
+        setState(() => showChips = true);
+      }
+    } else {
+      if (!showChips) {
+        setState(() => showChips = true);
+      }
+    }
   }
 
   Future<void> _initFavoritesState() async {
@@ -94,7 +107,10 @@ class _HomePageState extends State<HomePage> {
       children: [
         _chipList(),
         Expanded(
-          child: pages[selectedIndex],
+          child: IndexedStack(
+            index: selectedIndex,
+            children: pages,
+          ),
         ),
       ],
     );

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import '../../domain/entities/movie.dart';
-import 'movie_card.dart';
 import 'movie_list_card.dart';
 
 class MovieListComponent extends StatelessWidget {
