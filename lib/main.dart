@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ghibli_dex/app/modules/movies/presentation/pages/home_page.dart';
+import 'package:ghibli_dex/app/modules/home/pages/home_page.dart';
 import 'app/themes/theme.dart';
 
 void main() {

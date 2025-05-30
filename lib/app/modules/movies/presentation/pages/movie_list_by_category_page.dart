@@ -1,9 +1,11 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:ghibli_dex/app/modules/movies/presentation/blocs/movies_bloc.dart';
+import '../../../../blocs/movies_bloc.dart';
+import '../../../../core/utils/nav.dart';
 import '../../domain/entities/movie.dart';
 import '../widgets/movie_card.dart';
+import 'movie_page.dart';
 
 class MovieListByCategoryPage extends StatefulWidget {
   final ScrollController scrollController;
@@ -96,15 +98,18 @@ class _MovieListByCategoryPageState extends State<MovieListByCategoryPage> {
         controller: _pageController,
         itemCount: movies.length,
         itemBuilder: (context, index) {
-          return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 20),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(20),
-              child: Image.network(
-                movies[index].image,
-                fit: BoxFit.contain,
-                width: double.infinity,
-                height: 350,
+          return InkWell(
+            onTap: () => push(context, MoviePage(movies[index])),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 20),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(20),
+                child: Image.network(
+                  movies[index].image,
+                  fit: BoxFit.contain,
+                  width: double.infinity,
+                  height: 350,
+                ),
               ),
             ),
           );

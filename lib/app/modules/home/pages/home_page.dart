@@ -3,11 +3,11 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:ghibli_dex/app/modules/movies/presentation/widgets/selectable_chip.dart';
 
-import '../../data/services/favorite_movie_service.dart';
-import '../../domain/entities/movie.dart';
-import 'favorites_pages.dart';
-import 'movie_list_by_category_page.dart';
-import 'movie_list_page.dart';
+import '../../movies/data/services/favorite_movie_service.dart';
+import '../../movies/domain/entities/movie.dart';
+import '../../movies/presentation/pages/favorites_pages.dart';
+import '../../movies/presentation/pages/movie_list_by_category_page.dart';
+import '../../movies/presentation/pages/movie_list_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -35,14 +35,18 @@ class _HomePageState extends State<HomePage> {
     _scrollController = ScrollController();
 
     _scrollController.addListener(() {
-      if (_scrollController.position.userScrollDirection ==
-              ScrollDirection.reverse &&
-          showChips) {
-        setState(() => showChips = false);
-      } else if (_scrollController.position.userScrollDirection ==
-              ScrollDirection.forward &&
-          !showChips) {
-        setState(() => showChips = true);
+      if (selectedIndex != 2) {
+        if (_scrollController.position.userScrollDirection ==
+                ScrollDirection.reverse &&
+            showChips) {
+          setState(() => showChips = false);
+        } else if (_scrollController.position.userScrollDirection ==
+                ScrollDirection.forward &&
+            !showChips) {
+          setState(() => showChips = true);
+        }
+      } else {
+        if (!showChips) setState(() => showChips = true);
       }
     });
 

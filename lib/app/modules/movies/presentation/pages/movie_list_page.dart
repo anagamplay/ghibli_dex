@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:ghibli_dex/app/modules/movies/presentation/blocs/movies_bloc.dart';
+import '../../../../blocs/movies_bloc.dart';
 import '../../domain/entities/movie.dart';
 import '../widgets/movie_list_component.dart';
 

@@ -13,37 +13,31 @@ class FavoritesPage extends StatefulWidget {
   State<FavoritesPage> createState() => _FavoritesPageState();
 }
 
-class _FavoritesPageState extends State<FavoritesPage> {
-  Future<List<Movie>>? future;
+class _FavoritesPageState extends State<FavoritesPage> with AutomaticKeepAliveClientMixin<FavoritesPage> {
+  @override
+  bool get wantKeepAlive => true;
 
   @override
   void initState() {
     super.initState();
-    future = FavoriteMovieService.getFavorites();
+    FavoriteMovieService.getFavorites().then((movies) {
+      FavoriteMovieService.favoritesNotifier.value = movies;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<List<Movie>>(
-      future: future,
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Center(child: CircularProgressIndicator());
-        }
+    super.build(context);
 
-        if (snapshot.hasError) {
-          return Center(
-              child: Text("Erro ao carregar favoritos ${snapshot.error}"));
-        }
-
-        List<Movie> movies = snapshot.data ?? [];
-
-        if (movies.isEmpty) {
+    return ValueListenableBuilder<List<Movie>>(
+      valueListenable: FavoriteMovieService.favoritesNotifier,
+      builder: (context, favorites, _) {
+        if (favorites.isEmpty) {
           return const Center(child: Text("Nenhum filme favoritado."));
         }
 
         return MovieListComponent(
-          movies: movies,
+          movies: favorites,
           scrollController: widget.scrollController,
         );
       },
