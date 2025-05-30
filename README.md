@@ -1,5 +1,7 @@
 # GhibliDex
 
+<img src="assets/icone.png" alt="Icone do App" style="height: 300px; width: auto;" align="right"/>
+
 **GhibliDex** é um aplicativo de catálogo dos filmes do Studio Ghibli. Desenvolvido em Flutter, ele oferece funcionalidades como:
 
 - Marcar filmes como favoritos  
@@ -18,9 +20,9 @@ O app utiliza a [API pública do Studio Ghibli](https://ghibliapi.vercel.app/) p
 
 ### Telas do App
 
-| Tela inicial | Filmes por categoria | Filmes Favoritados | Detalhes do Filme |
-|:------------:|:--------------------:|:------------------:|:-----------------:|
-| ![Tela inicial](assets/all_screen.jpg) | ![Filmes por categoria](assets/by_category_screen.jpg) | ![Filmes Favoritados](assets/favorites_screen.jpg) | ![Detalhes do Filme](assets/movie_details_screen.jpg) |
+|     Tela inicial     | Filmes por categoria |  Filmes Favoritados  |   Detalhes do Filme  |
+|:--------------------:|:--------------------:|:--------------------:|:--------------------:|
+| <img src="assets/all_screen.jpg" alt="Tela inicial" style="height: 500px; width: auto;" /> | <img src="assets/by_category_screen.jpg" alt="Filmes por categoria" style="height: 500px; width: auto;" /> | <img src="assets/favorites_screen.jpg" alt="Filmes Favoritados" style="height: 500px; width: auto;" /> | <img src="assets/movie_details_screen.jpg" alt="Detalhes do Filme" style="height: 500px; width: auto;" /> |
 
 
 ---
@@ -45,21 +47,25 @@ Mostra apenas as imagens dos filmes, organizadas horizontalmente por categoria.
 
 ---
 
-## Detalhes do Filme
+<h2>Detalhes do Filme</h2>
 
-Ao tocar em um filme, o usuário é levado para uma tela de detalhes contendo:
+<img src="assets/movie_details_screen.jpg" alt="Detalhes do Filme" style="height: 400px; width: auto;" align="right"/>
 
-- Banner do filme  
-- Título  
-- Ano de lançamento  
-- Pontuação (0 a 5 estrelas)  
-- Descrição  
-- Diretor  
-- Produtor(es)  
-- Duração  
-- Botão para favoritar o filme
-
-Ao favoritar, um *toast* exibe a mensagem **"Movie added to favorites!"**, e o filme é salvo localmente em uma lista de strings (`favorited_movies`) utilizando `SharedPreferences`.
+<div align="left">
+  <p>Ao tocar em um filme, o usuário é levado para uma tela de detalhes contendo:</p>
+  <ul>
+    <li>Banner do filme</li>
+    <li>Título</li>
+    <li>Ano de lançamento</li>
+    <li>Pontuação (0 a 5 estrelas)</li>
+    <li>Descrição</li>
+    <li>Diretor</li>
+    <li>Produtor(es)</li>
+    <li>Duração</li>
+    <li>Botão para favoritar o filme</li>
+  </ul>
+  <p>Ao favoritar, um <em>toast</em> exibe a mensagem <strong>"Movie added to favorites!"</strong>, e o filme é salvo localmente em uma lista de strings (<code>favorited_movies</code>) utilizando <code>SharedPreferences</code>.</p>
+</div>
 
 ---
 
