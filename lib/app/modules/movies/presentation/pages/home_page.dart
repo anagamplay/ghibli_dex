@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:ghibli_dex/app/modules/movies/presentation/pages/movie_list_page.dart';
-import 'package:ghibli_dex/app/modules/movies/presentation/pages/favorites_pages.dart';
 import 'package:ghibli_dex/app/modules/movies/presentation/widgets/selectable_chip.dart';
 
 import '../../data/services/favorite_movie_service.dart';
 import '../../domain/entities/movie.dart';
+import 'favorites_pages.dart';
+import 'movie_list_by_category_page.dart';
+import 'movie_list_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -47,7 +48,7 @@ class _HomePageState extends State<HomePage> {
 
     pages = [
       MovieListPage(scrollController: _scrollController),
-      FavoritesPage(scrollController: _scrollController),
+      MovieListByCategoryPage(scrollController: _scrollController),
       FavoritesPage(scrollController: _scrollController),
     ];
 
