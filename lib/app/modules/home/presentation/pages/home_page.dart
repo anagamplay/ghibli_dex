@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:ghibli_dex/app/modules/movies/presentation/widgets/selectable_chip.dart';
 
 import '../../../movies/data/services/favorite_movie_service.dart';
 import '../../../movies/domain/entities/movie.dart';
 import '../../../movies/presentation/pages/favorites_pages.dart';
 import '../../../movies/presentation/pages/movie_list_by_category_page.dart';
 import '../../../movies/presentation/pages/movie_list_page.dart';
+import '../widgets/selectable_chip.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
