@@ -1,5 +1,7 @@
+import 'package:clarity_flutter/clarity_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../movies/data/services/favorite_movie_service.dart';
@@ -35,6 +37,7 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
+    _initializeClarity();
     _allController = ScrollController();
     _byCategoryController = ScrollController();
     _favoritesController = ScrollController();
@@ -52,6 +55,16 @@ class _HomePageState extends State<HomePage> {
 
     favoritesNotifier = FavoriteMovieService.favoritesNotifier;
     _initFavoritesState();
+  }
+
+  void _initializeClarity() {
+    final projectId = dotenv.env['CLARITY_PROJECT_ID'] ?? 'CLARITY_PROJECT_ID';
+    final config = ClarityConfig(
+      projectId: projectId,
+      logLevel: LogLevel.Verbose,
+    );
+
+    Clarity.initialize(context, config);
   }
 
   @override
